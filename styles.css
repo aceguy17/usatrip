@@ -1,0 +1,393 @@
+:root {
+  --bg: #f6f3ee;
+  --ink: #172026;
+  --muted: #667178;
+  --panel: #ffffff;
+  --line: #d8d1c6;
+  --navy: #18374a;
+  --blue: #2c6f91;
+  --green: #4f8f67;
+  --gold: #c98b2e;
+  --rose: #b65a63;
+  --shadow: 0 18px 50px rgba(23, 32, 38, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(44, 111, 145, 0.18), transparent 34rem),
+    linear-gradient(180deg, #fbfaf7 0%, var(--bg) 48%, #ece7df 100%);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.shell {
+  width: min(1240px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 42px;
+}
+
+.hero {
+  min-height: 310px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 24px;
+  align-items: end;
+  padding: 32px;
+  color: #fff;
+  border-radius: 18px;
+  background:
+    linear-gradient(115deg, rgba(12, 26, 36, 0.92), rgba(24, 55, 74, 0.72)),
+    url("assets/route-map.svg") center/cover no-repeat;
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: rgba(255, 255, 255, 0.74);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+h1 {
+  max-width: 760px;
+  font-size: clamp(2.3rem, 5vw, 5rem);
+  line-height: 0.95;
+}
+
+h2 {
+  font-size: 1.08rem;
+}
+
+.lede {
+  max-width: 720px;
+  margin: 18px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.08rem;
+}
+
+.event-card,
+.metric-card,
+.panel {
+  border: 1px solid rgba(216, 209, 198, 0.86);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 10px 30px rgba(23, 32, 38, 0.06);
+}
+
+.event-card {
+  padding: 22px;
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+}
+
+.event-card span,
+.metric-card span,
+.panel p,
+.timeline small,
+.sources {
+  color: var(--muted);
+}
+
+.event-card span,
+.event-card small {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.event-card strong {
+  display: block;
+  margin: 6px 0;
+  font-size: 1.55rem;
+}
+
+.overview-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.overview-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 18px 0;
+}
+
+.metric-card,
+.panel {
+  border-radius: 14px;
+}
+
+.metric-card {
+  padding: 18px;
+}
+
+.metric-card strong {
+  display: block;
+  margin: 6px 0 2px;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.panel {
+  padding: 18px;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: start;
+  margin-bottom: 16px;
+}
+
+.panel p {
+  margin: 5px 0 0;
+}
+
+.chip {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: #fff;
+  background: var(--navy);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.timeline,
+.checklist,
+.flight-grid,
+.info-grid,
+.document-grid,
+.accommodation-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.accommodation-grid {
+  grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
+}
+
+.accommodation-main,
+.document-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.accommodation-main {
+  padding: 16px;
+}
+
+.accommodation-main h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.accommodation-main p {
+  margin-bottom: 12px;
+}
+
+.accommodation-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.compact-list {
+  gap: 8px;
+}
+
+.flight-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.flight-card,
+.info-card,
+.booking-list div {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.flight-card {
+  padding: 16px;
+}
+
+.flight-card h3,
+.info-card h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.flight-card .route-line {
+  margin: 6px 0 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.segment-list,
+.detail-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.segment-list li {
+  display: grid;
+  gap: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.segment-list li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.segment-list strong,
+.detail-list strong {
+  color: var(--ink);
+}
+
+.segment-list span,
+.detail-list span,
+.flight-card small {
+  color: var(--muted);
+}
+
+.detail-list {
+  margin-top: 12px;
+}
+
+.detail-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.info-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.info-card {
+  padding: 14px;
+}
+
+.info-card p {
+  margin-top: 7px;
+}
+
+.booking-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.booking-list div {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+}
+
+.booking-list dt {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.booking-list dd {
+  margin: 0;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 14px;
+  position: relative;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.timeline-item strong {
+  display: block;
+}
+
+.checklist {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.checklist li {
+  margin: 0;
+}
+
+.document-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.document-card {
+  display: grid;
+  gap: 7px;
+  padding: 14px;
+}
+
+.document-card span {
+  color: var(--muted);
+}
+
+.sources {
+  margin-top: 18px;
+  padding: 0 4px;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .layout,
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flight-grid,
+  .info-grid,
+  .document-grid,
+  .accommodation-grid,
+  .accommodation-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .shell {
+    width: min(100% - 20px, 1240px);
+    padding-top: 10px;
+  }
+
+  .hero,
+  .panel {
+    padding: 16px;
+  }
+
+}

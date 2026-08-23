@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>USA Trip Dashboard</title>
+    <meta name="description" content="One-stop dashboard for Irfan's booked USA trip to Dreamforce 2026 and Birmingham.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Booked itinerary - Webjet reference 22739301</p>
+          <h1>USA Trip Dashboard</h1>
+          <p class="lede">A one-stop command center for the September 2026 USA trip: flights, Dreamforce, Birmingham family time, travel documents, airline references, baggage, and key reminders.</p>
+        </div>
+        <div class="event-card" aria-label="Event details">
+          <span>Salesforce event</span>
+          <strong>Dreamforce 2026</strong>
+          <small>San Francisco, September 15-17</small>
+        </div>
+      </header>
+
+      <section class="overview-grid" aria-label="Trip overview">
+        <article class="metric-card">
+          <span>Departure</span>
+          <strong>14 Sep</strong>
+          <small>Melbourne to San Francisco via Auckland</small>
+        </article>
+        <article class="metric-card">
+          <span>USA stay</span>
+          <strong>11 nights</strong>
+          <small>San Francisco plus Birmingham</small>
+        </article>
+        <article class="metric-card">
+          <span>Return</span>
+          <strong>27 Sep</strong>
+          <small>Arrive Melbourne Sunday morning</small>
+        </article>
+        <article class="metric-card">
+          <span>Flight booking</span>
+          <strong>A$3,071.43</strong>
+          <small>Paid through Webjet</small>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Accommodation</h2>
+            <p>Confirmed San Francisco stay from Booking.com.</p>
+          </div>
+          <span class="chip">Confirmed</span>
+        </div>
+        <div class="accommodation-grid" id="accommodationGrid"></div>
+      </section>
+
+      <section class="layout">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Trip Timeline</h2>
+              <p>Booked route from Melbourne to San Francisco, onward to Birmingham, then home to Melbourne.</p>
+            </div>
+          </div>
+          <div class="timeline" id="timeline"></div>
+        </div>
+
+        <aside class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Booking Snapshot</h2>
+              <p>Keep these details handy while travelling.</p>
+            </div>
+          </div>
+          <dl class="booking-list">
+            <div><dt>Passenger</dt><dd>Mr Irfan Iqbal</dd></div>
+            <div><dt>Webjet reference</dt><dd>22739301</dd></div>
+            <div><dt>Booking date</dt><dd>Wed 19 August 2026</dd></div>
+            <div><dt>Flight booking paid</dt><dd>A$3,071.43</dd></div>
+            <div><dt>Support in Australia</dt><dd>1800 935 929</dd></div>
+            <div><dt>Support overseas</dt><dd>+61 3 7043 9058</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Booked Flight Details</h2>
+            <p>Airline legs, transit windows, booking references, baggage, and known seat details from the Webjet itinerary.</p>
+          </div>
+        </div>
+        <div class="flight-grid" id="flightGrid"></div>
+      </section>
+
+      <section class="layout">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Important Information</h2>
+              <p>Key travel actions and warnings pulled from Webjet's important information document.</p>
+            </div>
+          </div>
+          <div class="info-grid" id="importantInfo"></div>
+        </div>
+
+        <aside class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Travel Checklist</h2>
+              <p>Simple pre-trip actions to review before departure.</p>
+            </div>
+          </div>
+          <ul class="checklist" id="checklist"></ul>
+        </aside>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Documents And References</h2>
+            <p>Local source files used to build the travel dashboard.</p>
+          </div>
+        </div>
+        <div class="document-grid">
+          <article class="document-card">
+            <strong>Webjet itinerary and tax invoice</strong>
+            <span>Flight legs, passenger details, airline references, baggage, seat, and paid booking amount.</span>
+          </article>
+          <article class="document-card">
+            <strong>Webjet important information</strong>
+            <span>Check-in, passport, visa, transit, baggage, seat-selection, travel insurance, and support guidance.</span>
+          </article>
+          <article class="document-card">
+            <strong>Booking.com reservation</strong>
+            <span>Aida Plaza Hotel confirmation, stay dates, address, room, check-in, cancellation, payment, and property notes.</span>
+          </article>
+        </div>
+      </section>
+
+      <footer class="sources">
+        <p><strong>Source notes:</strong> Flight details, baggage, airline references, and paid booking price are from the Webjet itinerary. Travel reminders are summarised from Webjet's important information document. Accommodation details are from your signed-in Booking.com reservation.</p>
+      </footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
