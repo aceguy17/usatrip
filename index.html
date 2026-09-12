@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>USA Trip Dashboard</title>
     <meta name="description" content="One-stop dashboard for Irfan's booked USA trip to Dreamforce 2026 and Birmingham.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -22,7 +23,36 @@
         </div>
       </header>
 
-      <section class="overview-grid" aria-label="Trip overview">
+      <div class="dashboard-layout">
+        <nav class="tab-bar" aria-label="Dashboard sections">
+          <button type="button" class="tab-button active" data-tab-target="overview">Overview</button>
+          <button type="button" class="tab-button" data-tab-target="day1">Day 1</button>
+          <button type="button" class="tab-button" data-tab-target="day2">Day 2</button>
+          <button type="button" class="tab-button" data-tab-target="day3">Day 3</button>
+          <button type="button" class="tab-button" data-tab-target="dreamforce">Dreamforce</button>
+          <button type="button" class="tab-button" data-tab-target="anz">ANZ Lounge</button>
+          <button type="button" class="tab-button" data-tab-target="dining">Dining Options</button>
+          <button type="button" class="tab-button" data-tab-target="groceries">Groceries</button>
+          <button type="button" class="tab-button" data-tab-target="esta">ESTA</button>
+          <button type="button" class="tab-button" data-tab-target="stay">Stay</button>
+          <button type="button" class="tab-button" data-tab-target="timeline">Timeline</button>
+          <button type="button" class="tab-button" data-tab-target="flights">Flights</button>
+          <button type="button" class="tab-button" data-tab-target="expenses">Expenses</button>
+          <button type="button" class="tab-button" data-tab-target="prep">Prep</button>
+          <button type="button" class="tab-button" data-tab-target="documents">Documents</button>
+        </nav>
+
+        <div class="dashboard-content">
+          <div class="search-box" role="search">
+            <label for="dashboardSearch">Search dashboard</label>
+            <div>
+              <input type="search" id="dashboardSearch" placeholder="Search flights, food, Dreamforce, ESTA, groceries">
+              <button type="button" id="dashboardSearchClear">Clear</button>
+            </div>
+            <span id="dashboardSearchStatus">Type to search across all tabs.</span>
+          </div>
+
+      <section class="overview-grid tab-panel active" data-tab-panel="overview" aria-label="Trip overview">
         <article class="metric-card">
           <span>Departure</span>
           <strong>14 Sep</strong>
@@ -43,9 +73,637 @@
           <strong>A$3,071.43</strong>
           <small>Paid through Webjet</small>
         </article>
+        <article class="metric-card overview-expenses">
+          <span>Trip expenses</span>
+          <strong id="overviewExpenseTotalUsd">US$0.00</strong>
+          <small><span id="overviewExpenseTotalAud">A$0.00</span> converted</small>
+          <small><span id="overviewExpenseCount">0 items</span> logged</small>
+          <div class="overview-expense-meta">
+            <span id="overviewExpenseTopCategory">Top category: none yet</span>
+            <button type="button" data-tab-target="expenses">View Expenses</button>
+          </div>
+        </article>
       </section>
 
-      <section class="panel">
+      <section class="panel tab-panel" data-tab-panel="day1">
+        <div class="panel-head">
+          <div>
+            <h2>Day 1 - Monday 14 September</h2>
+            <p>Landing day in San Francisco: immigration, hotel check-in, Dreamforce badge pickup, groceries, and an easy early night.</p>
+          </div>
+          <span class="chip">Arrival</span>
+        </div>
+        <div class="day-plan">
+          <article class="day-stop">
+            <time>12:55 PM</time>
+            <div>
+              <strong>Land at San Francisco International Airport</strong>
+              <p>Air New Zealand NZ8 is scheduled to arrive from Auckland at 12:55 PM local time. Clear immigration, collect bags, and keep ESTA/passport details handy.</p>
+            </div>
+          </article>
+          <article class="day-stop">
+            <time>2:15 PM</time>
+            <div>
+              <strong>Transfer to Aida Plaza Hotel</strong>
+              <p>Booking.com estimates SFO to the hotel as about a 17 minute / 21 km drive. Build in extra time for traffic and arrival-day fatigue.</p>
+            </div>
+          </article>
+          <article class="day-stop place-stop">
+            <time>3:00 PM</time>
+            <div>
+              <strong>Check in and reset</strong>
+              <p>Aida Plaza Hotel check-in starts at 1:00 PM. Drop bags, freshen up, charge the phone, and put badge pickup documents in a small bag.</p>
+            </div>
+          </article>
+          <article class="day-stop event-stop">
+            <time>4:00 PM</time>
+            <div>
+              <strong>Collect Dreamforce badge</strong>
+              <p>Go to the Moscone badge pickup area on Monday. Bring government photo ID, registration confirmation, and keep the bag small for security.</p>
+            </div>
+          </article>
+          <article class="day-stop">
+            <time>5:15 PM</time>
+            <div>
+              <strong>First grocery run</strong>
+              <p>Use Target or Trader Joe's near 4th and Market/Mission for water, snacks, breakfast basics, toiletries, and anything missing from the travel kit.</p>
+            </div>
+          </article>
+          <article class="day-stop food-stop">
+            <time>6:30 PM</time>
+            <div>
+              <strong>Simple halal dinner</strong>
+              <p>Keep dinner low-effort after the long flight: SUR Cafe, Gyro King, or MashaAllah if you want a proper filling meal close to Moscone.</p>
+            </div>
+          </article>
+          <article class="day-stop">
+            <time>8:00 PM</time>
+            <div>
+              <strong>Set up Tuesday</strong>
+              <p>Review the Dreamforce agenda, confirm Tuesday sessions, charge devices, lay out the badge/lanyard if collected, and aim for sleep early.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel tab-panel" data-tab-panel="day2">
+        <div class="panel-head">
+          <div>
+            <h2>Day 2 - Tuesday 15 September</h2>
+            <p>First Dreamforce day: keynote/session blocks, halal food, ANZ networking, and nearby Yerba Buena time.</p>
+          </div>
+          <span class="chip">Dreamforce</span>
+        </div>
+        <div class="day-plan">
+          <article class="day-stop">
+            <time>7:30 AM</time>
+            <div>
+              <strong>Breakfast near hotel or Moscone</strong>
+              <p>Keep it simple: coffee, fruit, pastry, or a light vegetarian option before the conference rush. If Monday badge pickup did not happen, go to Moscone early with ID.</p>
+            </div>
+          </article>
+          <article class="day-stop event-stop">
+            <time>8:30 AM</time>
+            <div>
+              <strong>Dreamforce opening sessions</strong>
+              <p>Prioritize the main keynote, Agentforce/AI sessions, and one hands-on workshop. Put exact sessions here once the Dreamforce agenda is live.</p>
+            </div>
+          </article>
+          <article class="day-stop food-stop">
+            <time>12:15 PM</time>
+            <div>
+              <strong>Halal lunch: MashaAllah Halal Pakistani Food</strong>
+              <p>Walk to 315 5th St for chicken biryani, chicken tikka masala, lamb korma, wraps, or a $20 lunch special. Good fit when you want a proper filling meal.</p>
+            </div>
+          </article>
+          <article class="day-stop event-stop">
+            <time>1:30 PM</time>
+            <div>
+              <strong>Dreamforce afternoon block</strong>
+              <p>Pick two sessions: one strategic keynote/theater session and one practical admin/developer/customer-success session you can bring back to work.</p>
+            </div>
+          </article>
+          <article class="day-stop place-stop">
+            <time>4:45 PM</time>
+            <div>
+              <strong>ANZ Networking Reception</strong>
+              <p>Head to the ANZ Lounge at Level 3, The Great Room, W Hotel San Francisco. Tuesday networking runs 5:00 PM-7:00 PM.</p>
+            </div>
+          </article>
+          <article class="day-stop food-stop">
+            <time>6:30 PM</time>
+            <div>
+              <strong>Halal dinner: SUR Cafe Mediterranean</strong>
+              <p>Head toward Market/Financial District for halal Mediterranean and Turkish plates. Choose a chicken plate, beef gyro, salmon bowl, or vegetarian option.</p>
+            </div>
+          </article>
+          <article class="day-stop">
+            <time>8:00 PM</time>
+            <div>
+              <strong>Hotel wind-down</strong>
+              <p>Log expenses, charge devices, review Wednesday sessions, and pack layers for air-conditioned conference rooms and cooler evening weather.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel tab-panel" data-tab-panel="day3">
+        <div class="panel-head">
+          <div>
+            <h2>Day 3 - Wednesday 16 September</h2>
+            <p>Second Dreamforce day: deeper sessions, Salesforce Park, Ferry Building, and halal dinner.</p>
+          </div>
+          <span class="chip">Explore</span>
+        </div>
+        <div class="day-plan">
+          <article class="day-stop">
+            <time>7:30 AM</time>
+            <div>
+              <strong>Arrive at Moscone</strong>
+              <p>Use the early window for coffee, agenda review, security screening, and getting oriented before the first session block.</p>
+            </div>
+          </article>
+          <article class="day-stop event-stop">
+            <time>8:30 AM</time>
+            <div>
+              <strong>Dreamforce morning sessions</strong>
+              <p>Focus on product roadmap, AI/Agentforce demos, and one session tied directly to your current Salesforce or project-management work.</p>
+            </div>
+          </article>
+          <article class="day-stop food-stop">
+            <time>12:00 PM</time>
+            <div>
+              <strong>Halal lunch: MashaAllah or SUR Cafe</strong>
+              <p>Use MashaAllah if you want Pakistani comfort food close to Moscone. Use SUR Cafe if you want a lighter Mediterranean bowl or plate before a walking break.</p>
+            </div>
+          </article>
+          <article class="day-stop place-stop">
+            <time>1:00 PM</time>
+            <div>
+              <strong>Salesforce Park walk</strong>
+              <p>Take the elevated park loop at Salesforce Transit Center. It is a good low-effort reset: greenery, benches, fountains, and city views without leaving downtown.</p>
+            </div>
+          </article>
+          <article class="day-stop event-stop">
+            <time>2:15 PM</time>
+            <div>
+              <strong>Dreamforce afternoon block</strong>
+              <p>Book one hands-on workshop and one networking/customer story session. Keep 20 minutes between sessions for walking and crowds.</p>
+            </div>
+          </article>
+          <article class="day-stop place-stop">
+            <time>4:00 PM</time>
+            <div>
+              <strong>ANZ Networking Reception</strong>
+              <p>Meet ANZ delegates at the ANZ Lounge, Level 3, The Great Room, W Hotel. Wednesday networking runs 4:00 PM-6:00 PM.</p>
+            </div>
+          </article>
+          <article class="day-stop food-stop">
+            <time>7:00 PM</time>
+            <div>
+              <strong>Halal dinner: SUR Cafe Mediterranean</strong>
+              <p>Use this as the easier halal dinner option after the waterfront walk. If you want a heavier meal instead, return to MashaAllah for lamb/chicken dishes.</p>
+            </div>
+          </article>
+          <article class="day-stop">
+            <time>8:30 PM</time>
+            <div>
+              <strong>Close the loop</strong>
+              <p>Log meals and transport in Expenses, shortlist Thursday sessions, and set aside ESTA/passport/flight details for the Birmingham travel day.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel tab-panel" data-tab-panel="dreamforce">
+        <div class="panel-head">
+          <div>
+            <h2>Dreamforce Sessions</h2>
+            <p>Official public agenda highlights for September 15-17, 2026. The live catalog has 1,600+ breakouts, 50+ keynotes, 150+ hands-on trainings and demos, and 240+ roundtables.</p>
+          </div>
+          <div class="panel-actions">
+            <button type="button" class="refresh-button" id="dreamforceRefreshButton">Refresh Details</button>
+            <a class="document-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog">Open Full Catalog</a>
+          </div>
+        </div>
+        <div class="dreamforce-note">
+          Salesforce says the full session catalog is managed in Agenda Builder and the Salesforce Events app. Refresh Details checks the live catalog for matching session titles and updates times or locations when they are found.
+        </div>
+        <div class="wifi-card">
+          <div>
+            <span>Onsite Wi-Fi</span>
+            <strong>#DF26</strong>
+          </div>
+          <div>
+            <span>Password</span>
+            <strong>Dreamforce2026</strong>
+          </div>
+          <small>Official Dreamforce 2026 FAQ onsite Wi-Fi information.</small>
+        </div>
+        <div class="dreamforce-refresh" id="dreamforceRefreshStatus">
+          Not checked from this dashboard yet.
+        </div>
+        <div class="dreamforce-days">
+          <article class="dreamforce-day">
+            <div class="dreamforce-day-head">
+              <span>Day 1</span>
+              <h3>Tuesday 15 September</h3>
+            </div>
+            <table class="session-table">
+              <thead>
+                <tr><th>Time</th><th>Type</th><th>Session / Experience</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>TBD</td><td>Main Keynote</td><td>Dreamforce Opening Keynote with Marc Benioff and special guests</td></tr>
+                <tr><td>All day</td><td>Experience</td><td>Campground product demos, customer stories, peer connections, and partner solutions</td></tr>
+                <tr><td>All day</td><td>Expert Session</td><td>Get Hands-on with Agentforce and Slack: book 1-to-1 sessions with product experts</td></tr>
+                <tr><td>All day</td><td>Customer Stories</td><td>Agentic Enterprise Customers: measurable agentic results from top brands</td></tr>
+                <tr><td>All day</td><td>Learning</td><td>Core Session Content: expert-led sessions, hands-on trainings, and agent building</td></tr>
+                <tr><td>All day</td><td>Networking</td><td>Networking and campus moments for peer conversations and new relationships</td></tr>
+                <tr><td>TBD</td><td>Visionary</td><td>Visionary sessions with AI experts and thought leaders</td></tr>
+                <tr><td>TBD</td><td>Fireside Chat</td><td>Fireside Chat with Marc Benioff and special guests</td></tr>
+                <tr><td>TBD</td><td>Reception</td><td>Dreamforce Welcome Reception</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>10 Ways to Make Your Work Life Better with Slack</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>Salesforce Transforms Sales with Data, Analytics, and AI</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>AI-Powered C-Suite Insights at Salesforce</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>Build Your AI Roadmap: 5 Strategic Steps to Success</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>Data 360: Your Trusted Foundation for Agentforce</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>Architecting Agentforce: The 5 Design Pillars to AI Success</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="dreamforce-day">
+            <div class="dreamforce-day-head">
+              <span>Day 2</span>
+              <h3>Wednesday 16 September</h3>
+            </div>
+            <table class="session-table">
+              <thead>
+                <tr><th>Time</th><th>Type</th><th>Session / Experience</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>TBD</td><td>Fireside Chat</td><td>Fireside Chat with Marc Benioff and special guests</td></tr>
+                <tr><td>TBD</td><td>Keynote</td><td>Product and industry keynotes</td></tr>
+                <tr><td>All day</td><td>Experience</td><td>Campground product demos, customer stories, peer connections, and partner solutions</td></tr>
+                <tr><td>All day</td><td>Expert Session</td><td>Get Hands-on with Agentforce and Slack: book 1-to-1 sessions with product experts</td></tr>
+                <tr><td>All day</td><td>Customer Stories</td><td>Agentic Enterprise Customers: measurable agentic results from top brands</td></tr>
+                <tr><td>All day</td><td>Learning</td><td>Core Session Content: expert-led sessions, hands-on trainings, and agent building</td></tr>
+                <tr><td>All day</td><td>Networking</td><td>Networking and campus moments for peer conversations and new relationships</td></tr>
+                <tr><td>TBD</td><td>Visionary</td><td>Visionary sessions with AI experts and thought leaders</td></tr>
+                <tr><td>6:00 PM-10:00 PM</td><td>Dreamfest</td><td>Dreamfest with surprise musical guests at Oracle Park</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>Bring Slack and CRM Together with Salesforce Channels</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>Put Your Agents to Work with Slack Actions</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>From Idea to Agent: Build Faster with Agentforce Builder</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>Transform Customer Engagement with Agentforce Voice</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>5 Steps to Getting Started with Data Cloud and Agentforce</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>Secure AI at Scale: Multi-Agent Design in Action</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="dreamforce-day">
+            <div class="dreamforce-day-head">
+              <span>Day 3</span>
+              <h3>Thursday 17 September</h3>
+            </div>
+            <table class="session-table">
+              <thead>
+                <tr><th>Time</th><th>Type</th><th>Session / Experience</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>TBD</td><td>Visionary</td><td>Visionary sessions with AI experts and thought leaders</td></tr>
+                <tr><td>TBD</td><td>Q&amp;A</td><td>True to the Core with Product Experts: live product Q&amp;A</td></tr>
+                <tr><td>TBD</td><td>Keynote</td><td>Product and industry keynotes</td></tr>
+                <tr><td>All day</td><td>Experience</td><td>Campground product demos, customer stories, peer connections, and partner solutions</td></tr>
+                <tr><td>All day</td><td>Expert Session</td><td>Get Hands-on with Agentforce and Slack: book 1-to-1 sessions with product experts</td></tr>
+                <tr><td>All day</td><td>Customer Stories</td><td>Agentic Enterprise Customers: measurable agentic results from top brands</td></tr>
+                <tr><td>All day</td><td>Learning</td><td>Core Session Content: expert-led sessions, hands-on trainings, and agent building</td></tr>
+                <tr><td>All day</td><td>Networking</td><td>Networking and campus moments for peer conversations and new relationships</td></tr>
+                <tr><td>TBD</td><td>Dreampitch</td><td>Dreampitch: Shark Tank-style entrepreneur competition</td></tr>
+                <tr><td>TBD</td><td>Networking</td><td>Partner parties and networking</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>AI Sales Agents: Your Secret to Smarter Selling</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>How Salesforce Builds Agentic Revenue Solutions</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>The Future of AI: What the Next Generation Sees Coming</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>How to Strategize, Pitch, and Showcase ROI for Your AI Journey</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>5 Roles You Need to Succeed with Enterprise AI</td></tr>
+                <tr><td>TBD</td><td>Can’t-miss</td><td>Future-Proof Your Admin Career: The Hidden AI Skills Gap</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel tab-panel" data-tab-panel="anz">
+        <div class="panel-head">
+          <div>
+            <h2>ANZ Lounge</h2>
+            <p>Exclusive Dreamforce lounge experience for travelling delegates from Australia and New Zealand.</p>
+          </div>
+          <a class="document-link" href="http://click.mail.salesforce.com/?qs=ABp7ImQiOjQ5NzksInQiOjExMzQyLCJzIjo4fQAIAAAAAAAH4mV1rL_obf5_HVoCZkiYt9BWoG43FVpoSkIRi4RT9RGtKFKnzydhrRieTHo1k-JuDEgpmJdJlp8V9p8y-PxnSsSntpvCSTypLA">Register Now</a>
+        </div>
+        <div class="anz-note">
+          Registration is required and by invitation only, open exclusively to full Dreamforce pass holders from Australia and New Zealand. Questions: anzevents@salesforce.com.
+        </div>
+        <div class="anz-grid">
+          <article class="anz-card">
+            <span>Main lounge</span>
+            <h3>The ANZ Lounge</h3>
+            <p>Comfortable space to network with ANZ Trailblazers, stream keynotes, relax, recharge devices, and get coffee.</p>
+            <dl>
+              <div><dt>Venue</dt><dd>Level 3, The Great Room, W Hotel, San Francisco</dd></div>
+              <div><dt>Hours</dt><dd>Tuesday 15 - Thursday 17 September 2026, 8:00 AM-5:00 PM</dd></div>
+              <div><dt>Location note</dt><dd>Located directly opposite Dreampark</dd></div>
+            </dl>
+          </article>
+          <article class="anz-card">
+            <span>Meeting space</span>
+            <h3>The ANZ Meeting Hub</h3>
+            <p>Semi-private meeting space for your account team, partners, or peers. Speak to the on-site team to check availability and book.</p>
+            <dl>
+              <div><dt>Venue</dt><dd>Level 3, Workroom, W Hotel, San Francisco</dd></div>
+              <div><dt>Hours</dt><dd>Tuesday 15 - Thursday 17 September 2026, 8:00 AM-5:00 PM</dd></div>
+              <div><dt>Best use</dt><dd>Account-team meetings, partner catchups, peer conversations</dd></div>
+            </dl>
+          </article>
+          <article class="anz-card highlight">
+            <span>Networking</span>
+            <h3>Elevate Your Networking Experience</h3>
+            <p>Meet, recap, and celebrate wins with other ANZ delegates building the Agentic Enterprise.</p>
+            <dl>
+              <div><dt>Venue</dt><dd>ANZ Lounge, Level 3, The Great Room, W Hotel</dd></div>
+              <div><dt>Tuesday</dt><dd>15 September, 5:00 PM-7:00 PM</dd></div>
+              <div><dt>Wednesday</dt><dd>16 September, 4:00 PM-6:00 PM</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel tab-panel" data-tab-panel="dining">
+        <div class="panel-head">
+          <div>
+            <h2>Dining Options</h2>
+            <p>Nearby halal and halal-friendly food options around Aida Plaza Hotel, Moscone, SoMa, Civic Center, and quick transit distance.</p>
+          </div>
+          <span class="chip">Halal</span>
+        </div>
+        <div class="dining-note">
+          Dreamforce says preordered specialty meals, including halal meals selected during registration, can be picked up in Yerba Buena East Garden behind YBCA Theater. For restaurants, confirm halal status when ordering, especially if the venue also serves alcohol or mixed menus.
+        </div>
+        <div class="dining-grid">
+          <article class="dining-card best-pick">
+            <span>Closest to Moscone</span>
+            <h3>Oasis Grill</h3>
+            <p>Mediterranean bowls, shawarma, gyro, shish taouk, falafel, hummus, platters, and baklava.</p>
+            <dl>
+              <div><dt>Addresses</dt><dd>200 4th St; 711 Market St; 100 1st St Ste 110</dd></div>
+              <div><dt>Hours</dt><dd>Varies by location; 4th St and Market St listed open until 8 PM, 1st St listed lunch-focused</dd></div>
+              <div><dt>Good for</dt><dd>Fast conference lunch, takeout, rice bowls, wraps</dd></div>
+            </dl>
+          </article>
+          <article class="dining-card best-pick">
+            <span>Pakistani comfort food</span>
+            <h3>MashaAllah Halal Pakistani Food</h3>
+            <p>Pakistani curries, biryani, lamb shank, lamb korma, chicken tikka masala, kebabs, naan, pratha, chai, and vegetarian dishes.</p>
+            <dl>
+              <div><dt>Address</dt><dd>315 5th St</dd></div>
+              <div><dt>Hours</dt><dd>Usually 11 AM-9 PM Mon-Thu, 11 AM-10 PM Fri-Sat, shorter Sunday hours</dd></div>
+              <div><dt>Good for</dt><dd>Filling lunch or dinner near Moscone; order ahead if short on time</dd></div>
+            </dl>
+          </article>
+          <article class="dining-card">
+            <span>Breakfast to dinner</span>
+            <h3>SUR Cafe Mediterranean</h3>
+            <p>Halal Mediterranean and Turkish-inspired plates, bowls, wraps, burgers, lamb chops, grilled chicken, doner bowls, mezes, pastries, and desserts.</p>
+            <dl>
+              <div><dt>Address</dt><dd>564 Market St</dd></div>
+              <div><dt>Hours</dt><dd>Listed daily 8 AM-10 PM</dd></div>
+              <div><dt>Good for</dt><dd>Breakfast, lighter lunch, dinner after conference sessions</dd></div>
+            </dl>
+          </article>
+          <article class="dining-card">
+            <span>Near Aida / Civic Center</span>
+            <h3>Gyro King</h3>
+            <p>Greek, Turkish, Middle Eastern, and Mediterranean food including gyro wraps, chicken gyro, lamb and beef plates, falafel, hummus, dolma, kebabs, and baklava.</p>
+            <dl>
+              <div><dt>Address</dt><dd>25 Grove St</dd></div>
+              <div><dt>Hours</dt><dd>Official site lists roughly 10:30 AM-7:45 PM weekdays and 10:45 AM-7:45 PM weekends</dd></div>
+              <div><dt>Good for</dt><dd>Near hotel, Orpheum, Civic Center, quick lunch or early dinner</dd></div>
+            </dl>
+          </article>
+          <article class="dining-card">
+            <span>Late dinner backup</span>
+            <h3>Red Chilli Halal</h3>
+            <p>Indian/Pakistani halal dishes including samosas, pakoras, curries, naan, roti, biryani-style plates, and tandoor items.</p>
+            <dl>
+              <div><dt>Address</dt><dd>522 Jones St</dd></div>
+              <div><dt>Hours</dt><dd>Listed opening at 11 AM and open late, shown to 11:30 PM</dd></div>
+              <div><dt>Good for</dt><dd>Late meal option north of the hotel area</dd></div>
+            </dl>
+          </article>
+          <article class="dining-card">
+            <span>Indian dinner</span>
+            <h3>Noor Indian Fusion Kitchen</h3>
+            <p>Indian halal comfort food, butter chicken, paneer, biryani, naan, and vegan/gluten-free options.</p>
+            <dl>
+              <div><dt>Address</dt><dd>100 Brannan St</dd></div>
+              <div><dt>Hours</dt><dd>Check reservation/listing before going</dd></div>
+              <div><dt>Good for</dt><dd>Sit-down dinner near Embarcadero, Oracle Park, and SoMa</dd></div>
+            </dl>
+          </article>
+          <article class="dining-card">
+            <span>Levantine brunch/lunch</span>
+            <h3>Boochmania</h3>
+            <p>Levantine and Mediterranean plates, hummus, kofte plate, chicken wrap, lentil miso burger, kombucha, and ayran.</p>
+            <dl>
+              <div><dt>Address</dt><dd>685 Harrison St</dd></div>
+              <div><dt>Hours</dt><dd>Listed Tue-Sat 8 AM-3 PM; closed Sun-Mon</dd></div>
+              <div><dt>Good for</dt><dd>Daytime meal near Moscone South / SoMa</dd></div>
+            </dl>
+          </article>
+          <article class="dining-card">
+            <span>Potrero / 16th St</span>
+            <h3>SF Kebab Mediterranean Grill</h3>
+            <p>Mediterranean halal plates, kebabs, wraps, salads, falafel, and coffee drinks.</p>
+            <dl>
+              <div><dt>Address</dt><dd>550 16th St</dd></div>
+              <div><dt>Hours</dt><dd>Listed daily 11 AM-9 PM</dd></div>
+              <div><dt>Good for</dt><dd>Uber/Lyft dinner option if downtown spots are crowded</dd></div>
+            </dl>
+          </article>
+          <article class="dining-card">
+            <span>Potrero / Warriors area</span>
+            <h3>Mediterranean Aroma</h3>
+            <p>Mediterranean halal wraps, shawarma, falafel, chicken kabob plates, lamb kabob plates, kefta, combo plates, and catering trays.</p>
+            <dl>
+              <div><dt>Address</dt><dd>900 16th St</dd></div>
+              <div><dt>Hours</dt><dd>Official site lists Mon-Sat 11 AM-8 PM; Sunday catering only</dd></div>
+              <div><dt>Good for</dt><dd>Generous plates slightly farther from Moscone</dd></div>
+            </dl>
+          </article>
+          <article class="dining-card">
+            <span>Market Street cart</span>
+            <h3>Golden Gate Halal Food</h3>
+            <p>Mediterranean/Afghan halal food-truck style option near Market Street.</p>
+            <dl>
+              <div><dt>Address</dt><dd>1169 Market St / Market Street area</dd></div>
+              <div><dt>Hours</dt><dd>Status and hours look less certain; verify before relying on it</dd></div>
+              <div><dt>Good for</dt><dd>Possible quick bite near hotel if operating</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel tab-panel" data-tab-panel="groceries">
+        <div class="panel-head">
+          <div>
+            <h2>Groceries</h2>
+            <p>Nearby places for water, snacks, fruit, toiletries, medicines, breakfast supplies, and late-night essentials.</p>
+          </div>
+          <span class="chip">Supplies</span>
+        </div>
+        <div class="grocery-note">
+          Distances are approximate walking distances from Aida Plaza Hotel, 1087 Market Street. Hours can change for holidays or events, so confirm before making a special trip.
+        </div>
+        <div class="grocery-grid">
+          <article class="grocery-card best-pick">
+            <span>Closest full errand</span>
+            <h3>Target San Francisco Central</h3>
+            <p>Good for bottled water, snacks, fruit, breakfast basics, toiletries, chargers, OTC medicine, and pharmacy needs.</p>
+            <dl>
+              <div><dt>Address</dt><dd>789 Mission St</dd></div>
+              <div><dt>Distance from hotel</dt><dd>About 0.7 mi / 1.1 km, 14-16 min walk</dd></div>
+              <div><dt>Opening hours</dt><dd>Daily 8:00 AM-8:00 PM; CVS pharmacy usually has separate hours</dd></div>
+              <div><dt>Why go</dt><dd>Most practical one-stop shop near Moscone and Market Street</dd></div>
+            </dl>
+          </article>
+          <article class="grocery-card best-pick">
+            <span>Easy snacks</span>
+            <h3>Trader Joe's 4th &amp; Market</h3>
+            <p>Good for trail mix, nuts, fruit, yoghurt, wraps, salads, frozen meals, breakfast food, chocolate, and office snacks.</p>
+            <dl>
+              <div><dt>Address</dt><dd>10 4th St</dd></div>
+              <div><dt>Distance from hotel</dt><dd>About 0.6 mi / 1.0 km, 12-14 min walk</dd></div>
+              <div><dt>Opening hours</dt><dd>Daily 8:00 AM-9:00 PM; some listings show a 9:00 AM opening, so check day-of</dd></div>
+              <div><dt>Why go</dt><dd>Quick grocery run close to Market Street and Union Square</dd></div>
+            </dl>
+          </article>
+          <article class="grocery-card">
+            <span>Closest pharmacy</span>
+            <h3>Walgreens Market Street</h3>
+            <p>Good for toiletries, water, snacks, medication, sunscreen, bandages, travel-size items, and quick convenience supplies.</p>
+            <dl>
+              <div><dt>Address</dt><dd>1301 Market St</dd></div>
+              <div><dt>Distance from hotel</dt><dd>About 0.2 mi / 0.3 km, 4-5 min walk</dd></div>
+              <div><dt>Opening hours</dt><dd>Store generally opens 8:00 AM; closing varies by day, with pharmacy hours separate</dd></div>
+              <div><dt>Why go</dt><dd>Closest simple pharmacy run from Aida Plaza Hotel</dd></div>
+            </dl>
+          </article>
+          <article class="grocery-card">
+            <span>Late-night pantry</span>
+            <h3>Mini Indian Grocery</h3>
+            <p>Indian groceries, fresh vegetables, spices, dals, snacks, drinks, and daily essentials.</p>
+            <dl>
+              <div><dt>Address</dt><dd>310 3rd St</dd></div>
+              <div><dt>Distance from hotel</dt><dd>About 0.9 mi / 1.4 km, 18-20 min walk</dd></div>
+              <div><dt>Opening hours</dt><dd>Sun-Thu 9:00 AM-1:00 AM; Fri-Sat 9:00 AM-2:00 AM</dd></div>
+              <div><dt>Why go</dt><dd>Best late option and useful for South Asian snacks or comfort supplies</dd></div>
+            </dl>
+          </article>
+          <article class="grocery-card">
+            <span>Prepared food</span>
+            <h3>Whole Foods Market - SoMa</h3>
+            <p>Good for fresh produce, salad bar, hot/prepared foods, bakery, snacks, sparkling water, and higher-quality groceries.</p>
+            <dl>
+              <div><dt>Address</dt><dd>399 4th St</dd></div>
+              <div><dt>Distance from hotel</dt><dd>About 0.9 mi / 1.4 km, 18-20 min walk</dd></div>
+              <div><dt>Opening hours</dt><dd>Daily 8:00 AM-10:00 PM</dd></div>
+              <div><dt>Why go</dt><dd>Better selection for fresh/prepared food; a little farther south</dd></div>
+            </dl>
+          </article>
+          <article class="grocery-card">
+            <span>Confirmed Whole Foods backup</span>
+            <h3>Whole Foods Market - Castro</h3>
+            <p>Useful if you want a reliable open Whole Foods with a hot bar, produce, bakery, snacks, and Amazon returns.</p>
+            <dl>
+              <div><dt>Address</dt><dd>2001 Market St</dd></div>
+              <div><dt>Distance from hotel</dt><dd>About 1.1 mi / 1.8 km, 22-25 min walk or short Muni ride</dd></div>
+              <div><dt>Opening hours</dt><dd>Daily 8:00 AM-10:00 PM</dd></div>
+              <div><dt>Why go</dt><dd>Use this instead of the old 1185 Market St Trinity location, which appears closed/uncertain</dd></div>
+            </dl>
+          </article>
+          <article class="grocery-card best-pick">
+            <span>Nearby shopping centre</span>
+            <h3>Metreon</h3>
+            <p>Closest practical shopping centre for Target, casual food, coffee, cinema, restrooms, and a quick indoor reset near Yerba Buena Gardens.</p>
+            <dl>
+              <div><dt>Address</dt><dd>135 4th St</dd></div>
+              <div><dt>Distance from hotel</dt><dd>About 0.7 mi / 1.1 km, 14-16 min walk</dd></div>
+              <div><dt>Opening hours</dt><dd>Centre hours vary, generally late morning to evening; Target inside is usually 8:00 AM-8:00 PM</dd></div>
+              <div><dt>Why go</dt><dd>Best nearby centre for groceries plus food options during Dreamforce</dd></div>
+            </dl>
+          </article>
+          <article class="grocery-card">
+            <span>Nearby shopping centre</span>
+            <h3>Crocker Galleria</h3>
+            <p>Small downtown arcade with a few shops and lunch options, better for a daytime look-around than a full grocery run.</p>
+            <dl>
+              <div><dt>Address</dt><dd>50 Post St</dd></div>
+              <div><dt>Distance from hotel</dt><dd>About 1.0 mi / 1.6 km, 20-22 min walk</dd></div>
+              <div><dt>Opening hours</dt><dd>Generally weekday daytime hours; limited weekend activity</dd></div>
+              <div><dt>Why go</dt><dd>Useful if you are already near Union Square or Financial District</dd></div>
+            </dl>
+          </article>
+          <article class="grocery-card">
+            <span>Nearby shopping note</span>
+            <h3>San Francisco Centre</h3>
+            <p>The former Westfield/San Francisco Centre at 865 Market St is very close, but recent reporting says the mall is largely vacant/closed and not a dependable shopping stop.</p>
+            <dl>
+              <div><dt>Address</dt><dd>865 Market St</dd></div>
+              <div><dt>Distance from hotel</dt><dd>About 0.4 mi / 0.6 km, 8-10 min walk</dd></div>
+              <div><dt>Opening hours</dt><dd>Do not rely on it for shopping; check current status before going</dd></div>
+              <div><dt>Why note it</dt><dd>It may appear on maps as nearby, but Metreon is the more useful choice</dd></div>
+            </dl>
+          </article>
+          <article class="grocery-card">
+            <span>Conference mini-kit</span>
+            <h3>What to buy first</h3>
+            <p>Keep the first grocery run boring and useful: bottled water, bananas, nuts, protein bars, throat lozenges, painkillers, hand sanitizer, tissues, and a couple of breakfast items.</p>
+            <dl>
+              <div><dt>Best stop</dt><dd>Target for basics; Trader Joe's for snacks; Walgreens for medicine</dd></div>
+              <div><dt>Pack note</dt><dd>Dreamforce security is easier with a small bag and only what you need</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel tab-panel" data-tab-panel="esta">
+        <div class="panel-head">
+          <div>
+            <h2>ESTA Travel Authorization</h2>
+            <p>USA Visa Waiver Program authorization from the official U.S. Customs and Border Protection ESTA confirmation.</p>
+          </div>
+          <span class="chip">Approved</span>
+        </div>
+        <div class="visa-grid">
+          <article class="visa-status-card">
+            <span>Status</span>
+            <strong>Authorization approved</strong>
+            <p>Authorized to travel to the United States under the Visa Waiver Program. Final admission is determined by CBP at the port of entry.</p>
+            <a class="document-link" href="assets/docs/esta-confirmation.pdf">Open ESTA PDF</a>
+          </article>
+          <dl class="booking-list visa-details">
+            <div><dt>Applicant</dt><dd>Irfan Iqbal</dd></div>
+            <div><dt>Application number</dt><dd>18J5046Q25924Z69</dd></div>
+            <div><dt>Expiration date</dt><dd>31 January 2027</dd></div>
+            <div><dt>Passport</dt><dd>PA7158638, Australia</dd></div>
+            <div><dt>Payment date</dt><dd>23 August 2026, 3:54:14 AM</dd></div>
+            <div><dt>Payment received</dt><dd>US$40.27</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="panel tab-panel" data-tab-panel="stay">
         <div class="panel-head">
           <div>
             <h2>Accommodation</h2>
@@ -56,7 +714,7 @@
         <div class="accommodation-grid" id="accommodationGrid"></div>
       </section>
 
-      <section class="layout">
+      <section class="layout tab-panel" data-tab-panel="timeline">
         <div class="panel">
           <div class="panel-head">
             <div>
@@ -85,7 +743,7 @@
         </aside>
       </section>
 
-      <section class="panel">
+      <section class="panel tab-panel" data-tab-panel="flights">
         <div class="panel-head">
           <div>
             <h2>Booked Flight Details</h2>
@@ -95,7 +753,68 @@
         <div class="flight-grid" id="flightGrid"></div>
       </section>
 
-      <section class="layout">
+      <section class="panel tab-panel" data-tab-panel="expenses">
+        <div class="panel-head">
+          <div>
+            <h2>Trip Expenses</h2>
+            <p>Add costs in USD and keep running totals in both USD and AUD.</p>
+          </div>
+          <span class="chip" id="expenseCount">0 items</span>
+        </div>
+        <div class="expense-layout">
+          <form class="expense-form" id="expenseForm">
+            <label>
+              Date
+              <input type="date" id="expenseDate" required>
+            </label>
+            <label>
+              Category
+              <select id="expenseCategory" required>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Accommodation">Accommodation</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Activities">Activities</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+            <label>
+              Vendor
+              <input type="text" id="expenseVendor" placeholder="Cafe, Uber, museum" required>
+            </label>
+            <label>
+              Amount USD
+              <input type="number" id="expenseAmount" min="0" step="0.01" placeholder="0.00" required>
+            </label>
+            <label>
+              USD to AUD rate
+              <input type="number" id="expenseExchangeRate" min="0" step="0.0001" value="1.52" required>
+            </label>
+            <label class="wide-field">
+              Notes
+              <input type="text" id="expenseNotes" placeholder="Optional details">
+            </label>
+            <button type="submit">Add Expense</button>
+          </form>
+          <div class="expense-summary" aria-label="Expense summary">
+            <article>
+              <span>Total spent USD</span>
+              <strong id="expenseTotalUsd">US$0.00</strong>
+            </article>
+            <article>
+              <span>Total spent AUD</span>
+              <strong id="expenseTotalAud">A$0.00</strong>
+            </article>
+            <article>
+              <span>Largest category</span>
+              <strong id="expenseTopCategory">None yet</strong>
+            </article>
+          </div>
+        </div>
+        <div class="expense-list" id="expenseList"></div>
+      </section>
+
+      <section class="layout tab-panel" data-tab-panel="prep">
         <div class="panel">
           <div class="panel-head">
             <div>
@@ -117,7 +836,7 @@
         </aside>
       </section>
 
-      <section class="panel">
+      <section class="panel tab-panel" data-tab-panel="documents">
         <div class="panel-head">
           <div>
             <h2>Documents And References</h2>
@@ -137,12 +856,29 @@
             <strong>Booking.com reservation</strong>
             <span>Aida Plaza Hotel confirmation, stay dates, address, room, check-in, cancellation, payment, and property notes.</span>
           </article>
+          <article class="document-card">
+            <strong>ESTA confirmation</strong>
+            <span>Official U.S. Customs and Border Protection authorization approval, application number, expiry, passport, and receipt details.</span>
+            <a class="document-link" href="assets/docs/esta-confirmation.pdf">Open PDF</a>
+          </article>
+          <article class="document-card">
+            <strong>Travel insurance certificate</strong>
+            <span>Certificate of Insurance HMTIB0345277 for the USA trip policy.</span>
+            <a class="document-link" href="assets/docs/insurance-certificate-hmtib0345277.pdf">Open PDF</a>
+          </article>
+          <article class="document-card">
+            <strong>Insurance Product Disclosure Statement</strong>
+            <span>Product Disclosure Statement dated 10 February 2026 for the travel insurance cover.</span>
+            <a class="document-link" href="assets/docs/insurance-product-disclosure-statement-2026-02-10.pdf">Open PDF</a>
+          </article>
         </div>
       </section>
 
       <footer class="sources">
-        <p><strong>Source notes:</strong> Flight details, baggage, airline references, and paid booking price are from the Webjet itinerary. Travel reminders are summarised from Webjet's important information document. Accommodation details are from your signed-in Booking.com reservation.</p>
+        <p><strong>Source notes:</strong> Flight details, baggage, airline references, and paid booking price are from the Webjet itinerary. Travel reminders are summarised from Webjet's important information document. Accommodation details are from your signed-in Booking.com reservation. ESTA details are from the official U.S. Customs and Border Protection confirmation PDF. Insurance details are from the Certificate of Insurance and Product Disclosure Statement PDFs.</p>
       </footer>
+        </div>
+      </div>
     </main>
     <script src="app.js"></script>
   </body>

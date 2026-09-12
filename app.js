@@ -144,7 +144,7 @@ var importantInfo = [
 
 var checklist = [
   "Confirm passport validity extends at least 6 months beyond return to Australia.",
-  "Apply for or verify USA ESTA at least 3 days before departure.",
+  "Carry the approved ESTA confirmation: application 18J5046Q25924Z69, valid until 31 January 2027.",
   "Check New Zealand transit requirements for Auckland, including NZeTA/NZTD if applicable.",
   "Carry photo ID and the credit card needed for Aida Plaza Hotel check-in.",
   "Save Aida Plaza Hotel confirmation number 6187488521 and PIN 7238 somewhere secure.",
@@ -152,9 +152,79 @@ var checklist = [
   "Check in with Air New Zealand, American Airlines, and Delta as each flight opens.",
   "Confirm whether checked baggage is tagged through at each transit point.",
   "Keep airline references handy: BIGKVH, LKDMUI, and JPXBUF.",
+  "Register for the invitation-only ANZ Lounge experience before Dreamforce.",
   "Arrive at Melbourne airport 3 hours before the 8:35 AM international departure.",
   "Keep Webjet support numbers saved for Australia and overseas."
 ];
+
+var expensesStorageKey = "usaTripExpenses";
+var expenseExchangeRateStorageKey = "usaTripExpenseUsdAudRate";
+var defaultUsdToAudRate = 1.52;
+var expenses = loadExpenses();
+
+function loadExpenses() {
+  try {
+    var storedExpenses = JSON.parse(localStorage.getItem(expensesStorageKey));
+    return Array.isArray(storedExpenses) ? storedExpenses : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveExpenses() {
+  localStorage.setItem(expensesStorageKey, JSON.stringify(expenses));
+}
+
+function loadExpenseExchangeRate() {
+  var storedRate = Number(localStorage.getItem(expenseExchangeRateStorageKey));
+  return Number.isFinite(storedRate) && storedRate > 0 ? storedRate : defaultUsdToAudRate;
+}
+
+function saveExpenseExchangeRate(rate) {
+  localStorage.setItem(expenseExchangeRateStorageKey, String(rate));
+}
+
+function getExpenseUsdAmount(expense) {
+  return Number(expense.amountUsd || expense.amount || 0);
+}
+
+function formatCurrency(amount, currency) {
+  return new Intl.NumberFormat("en-AU", {
+    style: "currency",
+    currency: currency
+  }).format(amount);
+}
+
+function formatExpenseDate(dateValue) {
+  if (!dateValue) {
+    return "No date";
+  }
+  var date = new Date(dateValue + "T00:00:00");
+  return date.toLocaleDateString("en-AU", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
+}
+
+function getTodayDateValue() {
+  var today = new Date();
+  var month = String(today.getMonth() + 1).padStart(2, "0");
+  var day = String(today.getDate()).padStart(2, "0");
+  return today.getFullYear() + "-" + month + "-" + day;
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, function (character) {
+    return {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "\"": "&quot;",
+      "'": "&#039;"
+    }[character];
+  });
+}
 
 function renderTimeline() {
   var container = document.getElementById("timeline");
@@ -165,6 +235,238 @@ function renderTimeline() {
     article.innerHTML = "<small>" + item[0] + "</small><div><strong>" + item[1] + "</strong><span>" + item[2] + "</span></div>";
     container.appendChild(article);
   });
+}
+
+function setupTabs() {
+  var triggers = Array.prototype.slice.call(document.querySelectorAll("[data-tab-target]"));
+  var buttons = Array.prototype.slice.call(document.querySelectorAll(".tab-button[data-tab-target]"));
+  var panels = Array.prototype.slice.call(document.querySelectorAll("[data-tab-panel]"));
+  var fallbackTab = "overview";
+
+  function showTab(tabName, shouldUpdateHash) {
+    var hasPanel = panels.some(function (panel) {
+      return panel.getAttribute("data-tab-panel") === tabName;
+    });
+    var activeTab = hasPanel ? tabName : fallbackTab;
+
+    buttons.forEach(function (button) {
+      var isActive = button.getAttribute("data-tab-target") === activeTab;
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+
+    panels.forEach(function (panel) {
+      panel.classList.toggle("active", panel.getAttribute("data-tab-panel") === activeTab);
+    });
+
+    if (shouldUpdateHash) {
+      history.replaceState(null, "", "#" + activeTab);
+    }
+  }
+
+  triggers.forEach(function (trigger) {
+    trigger.addEventListener("click", function () {
+      showTab(trigger.getAttribute("data-tab-target"), true);
+    });
+  });
+
+  window.addEventListener("hashchange", function () {
+    showTab(window.location.hash.replace("#", ""), false);
+  });
+
+  showTab(window.location.hash.replace("#", "") || fallbackTab, false);
+  window.showDashboardTab = showTab;
+}
+
+function setupDashboardSearch() {
+  var input = document.getElementById("dashboardSearch");
+  var clearButton = document.getElementById("dashboardSearchClear");
+  var status = document.getElementById("dashboardSearchStatus");
+  var panels = Array.prototype.slice.call(document.querySelectorAll("[data-tab-panel]"));
+
+  function getTabLabel(tabName) {
+    var button = document.querySelector(".tab-button[data-tab-target=\"" + tabName + "\"]");
+    return button ? button.textContent : tabName;
+  }
+
+  function clearMatches() {
+    panels.forEach(function (panel) {
+      panel.classList.remove("search-match");
+    });
+  }
+
+  function runSearch() {
+    var query = input.value.trim().toLowerCase();
+    clearMatches();
+
+    if (!query) {
+      status.textContent = "Type to search across all tabs.";
+      return;
+    }
+
+    var matches = panels.filter(function (panel) {
+      return panel.textContent.toLowerCase().indexOf(query) !== -1;
+    });
+
+    if (!matches.length) {
+      status.textContent = "No matches found.";
+      return;
+    }
+
+    var firstMatch = matches[0];
+    var tabName = firstMatch.getAttribute("data-tab-panel");
+    window.showDashboardTab(tabName, true);
+    firstMatch.classList.add("search-match");
+    status.textContent = matches.length + (matches.length === 1 ? " tab" : " tabs") + " matched. Showing " + getTabLabel(tabName) + ".";
+  }
+
+  input.addEventListener("input", runSearch);
+  clearButton.addEventListener("click", function () {
+    input.value = "";
+    clearMatches();
+    status.textContent = "Type to search across all tabs.";
+    input.focus();
+  });
+}
+
+function setupDreamforceRefresh() {
+  var button = document.getElementById("dreamforceRefreshButton");
+  var status = document.getElementById("dreamforceRefreshStatus");
+  var catalogUrl = "https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog";
+  var readerUrl = "https://r.jina.ai/" + catalogUrl;
+  var checkedStorageKey = "dreamforceLastCheckedAt";
+  var updatesStorageKey = "dreamforceSessionUpdates";
+
+  function normalizeSessionTitle(value) {
+    return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  }
+
+  function ensureLocationColumn() {
+    Array.prototype.slice.call(document.querySelectorAll(".session-table")).forEach(function (table) {
+      var headerRow = table.querySelector("thead tr");
+      if (headerRow && headerRow.children.length === 3) {
+        var locationHeader = document.createElement("th");
+        locationHeader.textContent = "Location";
+        headerRow.appendChild(locationHeader);
+      }
+      Array.prototype.slice.call(table.querySelectorAll("tbody tr")).forEach(function (row) {
+        if (row.children.length === 3) {
+          var locationCell = document.createElement("td");
+          locationCell.textContent = "TBD";
+          row.appendChild(locationCell);
+        }
+      });
+    });
+  }
+
+  function getSessionRows() {
+    return Array.prototype.slice.call(document.querySelectorAll(".session-table tbody tr")).map(function (row) {
+      return {
+        row: row,
+        timeCell: row.children[0],
+        titleCell: row.children[2],
+        locationCell: row.children[3],
+        key: normalizeSessionTitle(row.children[2].textContent)
+      };
+    });
+  }
+
+  function applySavedUpdates() {
+    var updates = {};
+    try {
+      updates = JSON.parse(localStorage.getItem(updatesStorageKey)) || {};
+    } catch (error) {
+      updates = {};
+    }
+    getSessionRows().forEach(function (session) {
+      var update = updates[session.key];
+      if (!update) {
+        return;
+      }
+      session.timeCell.textContent = update.time || session.timeCell.textContent;
+      session.locationCell.textContent = update.location || session.locationCell.textContent;
+      session.row.classList.add("session-updated");
+    });
+  }
+
+  function findSessionUpdate(catalogText, title) {
+    var index = catalogText.toLowerCase().indexOf(title.toLowerCase());
+    if (index === -1) {
+      return null;
+    }
+    var nearby = catalogText.slice(Math.max(0, index - 700), index + title.length + 1100);
+    var timeMatch = nearby.match(/(?:Tuesday|Wednesday|Thursday), September (?:15|16|17)\s+\d{1,2}:\d{2}\s+[AP]M\s+-\s+\d{1,2}:\d{2}\s+[AP]M\s+PDT/i);
+    var locationMatch = nearby.match(/\n([A-Z][^\n]*(?:Moscone|Campground|Theater|Room|Workshop|Lodge|Hall|Park|Hotel|Oracle Park|Dreampark)[^\n]*)\n/i);
+    return {
+      time: timeMatch ? timeMatch[0] : "",
+      location: locationMatch ? locationMatch[1].trim() : ""
+    };
+  }
+
+  function renderStatus() {
+    var lastCheckedAt = localStorage.getItem(checkedStorageKey);
+    if (!lastCheckedAt) {
+      status.textContent = "Not checked from this dashboard yet.";
+      return;
+    }
+    var checkedDate = new Date(lastCheckedAt);
+    status.textContent = "Last checked " + checkedDate.toLocaleString("en-AU") + ". Saved matching live catalog updates are shown in the tables.";
+  }
+
+  button.addEventListener("click", function () {
+    var originalText = button.textContent;
+    button.textContent = "Checking...";
+    button.disabled = true;
+    status.textContent = "Checking Salesforce live catalog for updated Dreamforce timings and locations...";
+
+    fetch(readerUrl, { cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Catalog check failed with status " + response.status);
+        }
+        return response.text();
+      })
+      .then(function (catalogText) {
+        var updates = {};
+        var matched = 0;
+        var changed = 0;
+
+        getSessionRows().forEach(function (session) {
+          var found = findSessionUpdate(catalogText, session.titleCell.textContent);
+          if (!found || (!found.time && !found.location)) {
+            return;
+          }
+          matched += 1;
+          updates[session.key] = found;
+          if (found.time && found.time !== session.timeCell.textContent) {
+            session.timeCell.textContent = found.time;
+            changed += 1;
+          }
+          if (found.location && found.location !== session.locationCell.textContent) {
+            session.locationCell.textContent = found.location;
+            changed += 1;
+          }
+          session.row.classList.add("session-updated");
+        });
+
+        localStorage.setItem(updatesStorageKey, JSON.stringify(updates));
+        localStorage.setItem(checkedStorageKey, new Date().toISOString());
+        renderStatus();
+        status.textContent += " Matched " + matched + " listed sessions; refreshed " + changed + " table fields.";
+      })
+      .catch(function () {
+        status.textContent = "Could not automatically read the live catalog from this browser. Opening Salesforce catalog so you can check manually.";
+        window.open(catalogUrl, "_blank", "noopener");
+      })
+      .finally(function () {
+        button.textContent = originalText;
+        button.disabled = false;
+      });
+  });
+
+  ensureLocationColumn();
+  applySavedUpdates();
+  renderStatus();
 }
 
 function renderAccommodation() {
@@ -250,8 +552,116 @@ function renderChecklist() {
   });
 }
 
+function getTopExpenseCategory() {
+  var categoryTotals = expenses.reduce(function (totals, expense) {
+    totals[expense.category] = (totals[expense.category] || 0) + getExpenseUsdAmount(expense);
+    return totals;
+  }, {});
+  var topCategory = Object.keys(categoryTotals).sort(function (a, b) {
+    return categoryTotals[b] - categoryTotals[a];
+  })[0];
+  return topCategory ? topCategory + " " + formatCurrency(categoryTotals[topCategory], "USD") : "None yet";
+}
+
+function renderExpenses() {
+  var list = document.getElementById("expenseList");
+  var exchangeRate = loadExpenseExchangeRate();
+  var totalUsd = expenses.reduce(function (sum, expense) {
+    return sum + getExpenseUsdAmount(expense);
+  }, 0);
+  var totalAud = totalUsd * exchangeRate;
+  var topCategory = getTopExpenseCategory();
+
+  document.getElementById("expenseCount").textContent = expenses.length + (expenses.length === 1 ? " item" : " items");
+  document.getElementById("expenseTotalUsd").textContent = formatCurrency(totalUsd, "USD");
+  document.getElementById("expenseTotalAud").textContent = formatCurrency(totalAud, "AUD");
+  document.getElementById("expenseTopCategory").textContent = topCategory;
+  document.getElementById("overviewExpenseTotalUsd").textContent = formatCurrency(totalUsd, "USD");
+  document.getElementById("overviewExpenseTotalAud").textContent = formatCurrency(totalAud, "AUD");
+  document.getElementById("overviewExpenseCount").textContent = expenses.length + (expenses.length === 1 ? " item" : " items");
+  document.getElementById("overviewExpenseTopCategory").textContent = "Top category: " + topCategory.toLowerCase();
+
+  if (!expenses.length) {
+    list.innerHTML = "<div class=\"empty-expenses\">No expenses added yet.</div>";
+    return;
+  }
+
+  list.innerHTML = expenses.map(function (expense) {
+    var notes = expense.notes ? "<span>" + escapeHtml(expense.notes) + "</span>" : "";
+    var amountUsd = getExpenseUsdAmount(expense);
+    var amountAud = amountUsd * exchangeRate;
+    return (
+      "<article class=\"expense-row\">" +
+      "<div><strong>" + escapeHtml(expense.vendor) + "</strong><span>" + formatExpenseDate(expense.date) + " - " + escapeHtml(expense.category) + "</span>" + notes + "</div>" +
+      "<div><strong>" + formatCurrency(amountUsd, "USD") + "</strong><span>" + formatCurrency(amountAud, "AUD") + "</span><button type=\"button\" data-expense-id=\"" + expense.id + "\">Remove</button></div>" +
+      "</article>"
+    );
+  }).join("");
+}
+
+function setupExpenses() {
+  var form = document.getElementById("expenseForm");
+  var dateInput = document.getElementById("expenseDate");
+  var exchangeRateInput = document.getElementById("expenseExchangeRate");
+  dateInput.value = getTodayDateValue();
+  exchangeRateInput.value = loadExpenseExchangeRate();
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var amountUsd = Number(document.getElementById("expenseAmount").value);
+    var exchangeRate = Number(exchangeRateInput.value);
+    var vendor = document.getElementById("expenseVendor").value.trim();
+    if (!vendor || !Number.isFinite(amountUsd) || amountUsd <= 0 || !Number.isFinite(exchangeRate) || exchangeRate <= 0) {
+      return;
+    }
+    saveExpenseExchangeRate(exchangeRate);
+
+    expenses.unshift({
+      id: Date.now().toString(),
+      date: dateInput.value,
+      category: document.getElementById("expenseCategory").value,
+      vendor: vendor,
+      amountUsd: amountUsd,
+      notes: document.getElementById("expenseNotes").value.trim()
+    });
+    saveExpenses();
+    renderExpenses();
+    form.reset();
+    dateInput.value = getTodayDateValue();
+    exchangeRateInput.value = loadExpenseExchangeRate();
+  });
+
+  exchangeRateInput.addEventListener("change", function () {
+    var exchangeRate = Number(exchangeRateInput.value);
+    if (!Number.isFinite(exchangeRate) || exchangeRate <= 0) {
+      exchangeRateInput.value = loadExpenseExchangeRate();
+      return;
+    }
+    saveExpenseExchangeRate(exchangeRate);
+    renderExpenses();
+  });
+
+  document.getElementById("expenseList").addEventListener("click", function (event) {
+    var expenseId = event.target.getAttribute("data-expense-id");
+    if (!expenseId) {
+      return;
+    }
+    expenses = expenses.filter(function (expense) {
+      return expense.id !== expenseId;
+    });
+    saveExpenses();
+    renderExpenses();
+  });
+
+  renderExpenses();
+}
+
 renderTimeline();
 renderAccommodation();
 renderFlightDetails();
 renderImportantInfo();
 renderChecklist();
+setupExpenses();
+setupTabs();
+setupDashboardSearch();
+setupDreamforceRefresh();

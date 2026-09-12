@@ -117,9 +117,124 @@ h2 {
   gap: 14px;
 }
 
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  margin-top: 18px;
+}
+
+.dashboard-content {
+  min-width: 0;
+}
+
+.tab-bar {
+  position: sticky;
+  top: 18px;
+  z-index: 10;
+  display: grid;
+  gap: 8px;
+  max-height: calc(100vh - 36px);
+  margin: 0;
+  padding: 10px;
+  overflow-y: auto;
+  border: 1px solid rgba(216, 209, 198, 0.86);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 30px rgba(23, 32, 38, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+.tab-button {
+  min-height: 38px;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--muted);
+  background: transparent;
+  font: inherit;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tab-button:hover {
+  color: var(--ink);
+  background: #f0ebe3;
+}
+
+.tab-button.active {
+  color: #fff;
+  background: var(--navy);
+}
+
+.tab-panel:not(.active) {
+  display: none;
+}
+
+.search-box {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 14px;
+  border: 1px solid rgba(216, 209, 198, 0.86);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 30px rgba(23, 32, 38, 0.06);
+}
+
+.search-box label {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.search-box div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.search-box input {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 10px;
+  color: var(--ink);
+  background: #fff;
+  font: inherit;
+}
+
+.search-box input:focus {
+  border-color: var(--blue);
+  outline: 3px solid rgba(44, 111, 145, 0.18);
+}
+
+.search-box button {
+  border: 0;
+  border-radius: 8px;
+  padding: 9px 11px;
+  color: #fff;
+  background: var(--navy);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.search-box span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.search-match {
+  box-shadow: 0 0 0 3px rgba(201, 139, 46, 0.22), 0 10px 30px rgba(23, 32, 38, 0.06);
+}
+
 .overview-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin: 18px 0;
+  margin: 0;
 }
 
 .metric-card,
@@ -131,10 +246,50 @@ h2 {
   padding: 18px;
 }
 
+.overview-expenses {
+  grid-column: span 2;
+}
+
+.overview-expenses strong + small {
+  display: block;
+  margin-top: 2px;
+}
+
 .metric-card strong {
   display: block;
   margin: 6px 0 2px;
   font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.overview-expense-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.overview-expense-meta span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.overview-expense-meta button {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 11px;
+  color: #fff;
+  background: var(--blue);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.overview-expense-meta button:hover {
+  background: var(--navy);
 }
 
 .layout {
@@ -156,6 +311,13 @@ h2 {
   margin-bottom: 16px;
 }
 
+.panel-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  align-items: center;
+}
+
 .panel p {
   margin: 5px 0 0;
 }
@@ -172,12 +334,23 @@ h2 {
 
 .timeline,
 .checklist,
+.day-plan,
+.dreamforce-days,
+.anz-grid,
+.dining-grid,
+.grocery-grid,
 .flight-grid,
 .info-grid,
 .document-grid,
-.accommodation-grid {
+.accommodation-grid,
+.visa-grid,
+.expense-list {
   display: grid;
   gap: 12px;
+}
+
+.visa-grid {
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
 }
 
 .accommodation-grid {
@@ -185,13 +358,15 @@ h2 {
 }
 
 .accommodation-main,
-.document-card {
+.document-card,
+.visa-status-card {
   border: 1px solid var(--line);
   border-radius: 12px;
   background: #fff;
 }
 
-.accommodation-main {
+.accommodation-main,
+.visa-status-card {
   padding: 16px;
 }
 
@@ -334,6 +509,278 @@ h2 {
   display: block;
 }
 
+.day-plan {
+  gap: 10px;
+}
+
+.dreamforce-note {
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid rgba(201, 139, 46, 0.42);
+  border-radius: 12px;
+  background: #fff8eb;
+  color: #6f4a15;
+}
+
+.dreamforce-refresh {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--muted);
+  font-weight: 750;
+}
+
+.wifi-card {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+  padding: 14px;
+  border: 1px solid rgba(44, 111, 145, 0.34);
+  border-radius: 12px;
+  background: #eef7fb;
+}
+
+.wifi-card div {
+  display: grid;
+  gap: 4px;
+}
+
+.wifi-card span,
+.wifi-card small {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.wifi-card strong {
+  font-size: 1.12rem;
+}
+
+.dining-note {
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid rgba(79, 143, 103, 0.38);
+  border-radius: 12px;
+  background: #f1fbf4;
+  color: #285637;
+}
+
+.anz-note {
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid rgba(44, 111, 145, 0.34);
+  border-radius: 12px;
+  background: #eef7fb;
+  color: #1b4c62;
+}
+
+.grocery-note {
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid rgba(44, 111, 145, 0.34);
+  border-radius: 12px;
+  background: #eef7fb;
+  color: #1b4c62;
+}
+
+.anz-grid,
+.dining-grid,
+.grocery-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.anz-card,
+.dining-card,
+.grocery-card {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.anz-card.highlight {
+  border-color: rgba(201, 139, 46, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(201, 139, 46, 0.16);
+}
+
+.dining-card.best-pick,
+.grocery-card.best-pick {
+  border-color: rgba(79, 143, 103, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(79, 143, 103, 0.16);
+}
+
+.grocery-card.best-pick {
+  border-color: rgba(44, 111, 145, 0.48);
+  box-shadow: inset 0 0 0 1px rgba(44, 111, 145, 0.14);
+}
+
+.anz-card span,
+.dining-card span,
+.grocery-card span {
+  color: var(--green);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.anz-card span {
+  color: var(--gold);
+}
+
+.grocery-card span {
+  color: var(--blue);
+}
+
+.anz-card h3,
+.dining-card h3,
+.grocery-card h3 {
+  margin: 0;
+}
+
+.anz-card p,
+.dining-card p,
+.grocery-card p {
+  margin: 0;
+}
+
+.anz-card dl,
+.dining-card dl,
+.grocery-card dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.anz-card dl div,
+.dining-card dl div,
+.grocery-card dl div {
+  display: grid;
+  gap: 3px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.anz-card dt,
+.dining-card dt,
+.grocery-card dt {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.anz-card dd,
+.dining-card dd,
+.grocery-card dd {
+  margin: 0;
+  font-weight: 750;
+}
+
+.dreamforce-day {
+  display: grid;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  overflow-x: auto;
+}
+
+.dreamforce-day-head {
+  padding: 14px;
+  color: #fff;
+  background: var(--navy);
+}
+
+.dreamforce-day-head span {
+  display: block;
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.dreamforce-day-head h3,
+.session-table th {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.session-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.session-table th,
+.session-table td {
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.session-table th {
+  color: var(--muted);
+  background: #f8f6f1;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.session-table td {
+  color: var(--muted);
+}
+
+.session-table td:first-child,
+.session-table td:nth-child(2) {
+  width: 132px;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.session-updated td {
+  background: #f1fbf4;
+}
+
+.day-stop {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--blue);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.day-stop time {
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.day-stop strong {
+  display: block;
+}
+
+.day-stop p {
+  margin: 5px 0 0;
+}
+
+.event-stop {
+  border-left-color: var(--green);
+}
+
+.food-stop {
+  border-left-color: var(--gold);
+}
+
+.place-stop {
+  border-left-color: var(--rose);
+}
+
 .checklist {
   padding-left: 20px;
   margin: 0;
@@ -357,6 +804,182 @@ h2 {
   color: var(--muted);
 }
 
+.visa-status-card {
+  display: grid;
+  gap: 8px;
+}
+
+.visa-status-card span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.visa-status-card strong {
+  font-size: 1.35rem;
+}
+
+.visa-status-card p {
+  margin: 0;
+}
+
+.document-link {
+  justify-self: start;
+  border-radius: 8px;
+  padding: 9px 11px;
+  color: #fff;
+  background: var(--blue);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.refresh-button {
+  border: 0;
+  border-radius: 8px;
+  padding: 9px 11px;
+  color: #fff;
+  background: var(--green);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.refresh-button:hover {
+  background: var(--navy);
+}
+
+.refresh-button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.document-link:hover {
+  background: var(--navy);
+}
+
+.visa-details {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.expense-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 14px;
+  align-items: start;
+}
+
+.expense-form {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.expense-form label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.expense-form input,
+.expense-form select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 10px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.expense-form input:focus,
+.expense-form select:focus {
+  border-color: var(--blue);
+  outline: 3px solid rgba(44, 111, 145, 0.18);
+}
+
+.expense-form button,
+.expense-row button {
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--navy);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.expense-form button {
+  min-height: 42px;
+  align-self: end;
+}
+
+.wide-field {
+  grid-column: span 4;
+}
+
+.expense-summary {
+  display: grid;
+  gap: 12px;
+}
+
+.expense-summary article,
+.expense-row,
+.empty-expenses {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.expense-summary article {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+}
+
+.expense-summary span,
+.expense-row span {
+  color: var(--muted);
+}
+
+.expense-summary strong {
+  font-size: 1.3rem;
+}
+
+.expense-list {
+  margin-top: 14px;
+}
+
+.expense-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 14px;
+}
+
+.expense-row div {
+  display: grid;
+  gap: 4px;
+}
+
+.expense-row div:last-child {
+  justify-items: end;
+}
+
+.expense-row button {
+  padding: 7px 10px;
+  background: var(--rose);
+  font-size: 0.86rem;
+}
+
+.empty-expenses {
+  padding: 18px;
+  color: var(--muted);
+  text-align: center;
+}
+
 .sources {
   margin-top: 18px;
   padding: 0 4px;
@@ -366,16 +989,45 @@ h2 {
 @media (max-width: 900px) {
   .hero,
   .layout,
+  .dashboard-layout,
   .overview-grid {
     grid-template-columns: 1fr;
+  }
+
+  .dashboard-layout {
+    gap: 12px;
+  }
+
+  .tab-bar {
+    position: static;
+    max-height: none;
+  }
+
+  .overview-expenses {
+    grid-column: auto;
   }
 
   .flight-grid,
   .info-grid,
   .document-grid,
+  .anz-grid,
+  .dining-grid,
+  .grocery-grid,
+  .dreamforce-days,
   .accommodation-grid,
-  .accommodation-details {
+  .accommodation-details,
+  .visa-grid,
+  .visa-details,
+  .expense-layout {
     grid-template-columns: 1fr;
+  }
+
+  .expense-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wide-field {
+    grid-column: span 2;
   }
 }
 
@@ -388,6 +1040,35 @@ h2 {
   .hero,
   .panel {
     padding: 16px;
+  }
+
+  .panel-actions {
+    flex-wrap: wrap;
+  }
+
+  .search-box div {
+    grid-template-columns: 1fr;
+  }
+
+  .expense-form,
+  .expense-row,
+  .day-stop,
+  .wifi-card,
+  .overview-expense-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .overview-expense-meta {
+    display: grid;
+    align-items: start;
+  }
+
+  .wide-field {
+    grid-column: auto;
+  }
+
+  .expense-row div:last-child {
+    justify-items: start;
   }
 
 }
